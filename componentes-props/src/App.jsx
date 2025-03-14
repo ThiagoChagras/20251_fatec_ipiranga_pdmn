@@ -1,79 +1,65 @@
+import Pedido from "./Pedido"
+import Cartao from "./Cartao"
+import Feedback from "./Feedback"
+
 const App = () => {
+  const textoOk = "Já chegou"
+  const textoNOK = "Ainda não chegou"
+  const funcaoOk = () => alert("Agradecemos o feedback")
+  const funcaoNOK = () => alert("Verificaremos o que aconteceu")
+  const componenteFeedback = (
+    <Feedback textoOk={textoOk} 
+    textoNOK={textoNOK} 
+    funcaoOk={funcaoOk} 
+    funcaoNOK={funcaoNOK} />
+  )
   return (
     <div className="container border rounded mt-2">
       <div className="row">
 
         <div className="col-sm=12 col-md-6 col=xxl-3">
-          
-          <div className="card">
-            <div className="card-header text muted">
-              22/04/2024
-            </div>
-            <div className="card-body d-flex">
-              <div className="d-flex align-items-center">
-                <i className="fa-solid fa-headset fa-2x fa-shake"></i>
-              </div>
-              <div className="border flex-grow-1 ms-3 py-2">
-                <h4 className="text-center">Headset</h4>
-                <p className="text-center">Headset Bluetooth</p>
-              </div>
-            </div>
-          </div>
-
+          {/* <Pedido /> */}
+          <Cartao
+            cabecalho="22/02/2024">
+            <Pedido 
+              icone="headset"
+              titulo="Headset"
+              descricao="Headset Bluetooth"/>
+            {componenteFeedback}
+          </Cartao>
         </div>
         
         <div className="col-sm=12 col-md-6 col=xxl-3">
-            <div className="card">
-            <div className="card-header text muted">
-              22/04/2021
-            </div>
-            <div className="card-body d-flex">
-              <div className="d-flex align-items-center">
-                <i className="fa-solid fa-gamepad fa-2x fa-shake"></i>
-              </div>
-              <div className="border flex-grow-1 ms-3 py-2">
-              <h4 className="text-center">Gamepad</h4>
-              <p className="text-center">Gamepad Nintendo</p>
-              </div>
-            </div>
-          </div>
-
+          <Cartao
+            cabecalho="22/03/2024">
+            <Pedido
+              data="22/03/2024"
+              icone="gamepad"
+              titulo="GamePad"	
+              descricao="Gamepad Nintendo" />
+              {componenteFeedback}            
+          </Cartao>
         </div>
         <div className="col-sm=12 col-md-6 col=xxl-3">
-            
-          <div className="card">
-            <div className="card-header text muted">
-              22/04/2021
-            </div>
-            <div className="card-body d-flex">
-              <div className="d-flex align-items-center">
-                <i className="fa-solid fa-hippo fa-2x fa-shake"></i>
-              </div>
-              <div className="border flex-grow-1 ms-3 py-2">
-              <h4 className="text-center">Hipopótamo</h4>
-              <p className="text-center">Hipopótamo Femea</p>
-              </div>
-            </div>
-          </div>
-
+          <Cartao
+            cabecalho="22/04/2024">
+            <Pedido 
+              icone="hippo"
+              titulo="Hipopótamo"
+              descricao="Hipopótamo de femêa"/>
+            {componenteFeedback}
+          </Cartao>
         </div>
-        <div className="col-sm=12 col-md-6 col=xxl-3">
-            
-          <div className="card">
-            <div className="card-header text muted">
-              22/04/2021
-            </div>
-            <div className="card-body d-flex">
-              <div className="d-flex align-items-center">
-                <i className="fa-solid fa-snowman fa-2x fa-shake"></i>
-              </div>
-              <div className="border flex-grow-1 ms-3 py-2">
-                <h4>Boneco de neve</h4>
-                <p>Esse bonecpo de neve fica balançando sozinho</p>
-              </div>
-            </div>
-          </div>
 
+        <div className="col-sm=12 col-md-6 col=xxl-3">
+          <Cartao
+            cabecalho="22/05/2024">
+            <Pedido 
+              icone="snowman"
+              titulo="Boneco de Neve"
+              descricao="Esse boneco fica se mexendo sozinho"/>
+              {componenteFeedback}
+          </Cartao>
         </div>
       </div>
     </div>
