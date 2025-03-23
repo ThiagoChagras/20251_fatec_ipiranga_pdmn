@@ -1,19 +1,41 @@
 import React from 'react'
+import EstacaoClimatica from './EstacaoClimatica'
+import Loading from './Loading'
 
 class App extends React.Component {
   
-  constructor(props) {
-    super(props)
-    this.state = {
-      latitude: null,
-      longitude: null,
-      estacao: null,
-      data: null,
-      icone: null,
-      mensagemErro: null
-    }
-
+//  constructor(props) {
+//    super(props)
+//    this.state = {
+//      latitude: null,
+//      longitude: null,
+//     estacao: null,
+//      data: null,
+//      icone: null,
+//      mensagemErro: null
+//    }
+//  console.log('Construtor')
+//  }
+  state = {
+    latitude: null,
+    longitude: null,
+    estacao: null,
+    data: null,
+    icone: null,
+    mensagemErro: null
   }
+
+  componentDidMount() {
+    console.log('ComponentDidMount')
+    this.obterLocalizacao()
+  }
+  componentDidUpdate() {
+    console.log('ComponentDidUpdate')
+  }
+  componentWillUnmount() {
+    console.log('ComponentWillUnmount')
+  }
+  
 
   obterEstacao = (data, latitude) => {
     const anoAtual = data.getFullYear()
@@ -24,13 +46,13 @@ class App extends React.Component {
     //22/12
     const d3 = new Date(anoAtual, 11, 22)
     //21/03
-    //const d4 = new Date(anoAtual, 2, 21)
+    const d4 = new Date(anoAtual, 2, 21)
     const estaNoSul = latitude < 0
     if (data >= d1 && data < d2)
       return estaNoSul ? 'Inverno' : 'Verão'
     if (data >= d2 && data < d3)
       return estaNoSul ? 'Primavera' : 'Outono'
-    if (data >= d3 || data < d1)
+    if (data >= d3 || data < d4)
       return estaNoSul ? 'Verão' : 'Inverno'
     return estaNoSul ? 'Outono' : 'Primavera'
   }
@@ -68,41 +90,31 @@ class App extends React.Component {
   )
   }
   render() {
-  
+    console.log('render')
     return (
       <div className="container mt-2">
         <div className="row justify-content-center">
           <div className="col-sm-12 col-md-8 col-xxl-6">
-            <div className="card">
-              <div className="card-body">
-                <div className="d-flex align-items-center border-rounded mb-2 p-5" style={{height: '10rem'}}>
-                  <i className={`fas fa-5x fa-${this.state.icone}`}></i>
-                  <p className="w-75 ms-3 text-center fs-1">
-                    {this.state.estacao}
+            <div className='d-flex align-items center vh-100'>
+            {
+              (!this.state.latitude && !this.state.mensagemErro) ?
+                <Loading
+                  mensagem="Por favor, responda à solicitação de localização"/>
+              :
+                this.state.mensagemErro ?
+                  <p className="border rounded p-2 fs-1 text-center">
+                    É preciso permitir a localização para usar o aplicativo.
                   </p>
-                </div>
-
-                <div>
-                  {/*rederizaçãoo condicional*/}
-                  <p className="text-center">
-                    {
-                      this.state.latitude ?
-                      `Coordenadas: ${this.state.latitude}, ${this.state.
-                      longitude}. Data: ${this.state.data}.`
-                      :
-                      this.state.mensagemErro ?
-                      `${this.state.mensagemErro}`
-                      :
-                      'Clique no botão para saber a sua estação climática.'
-                      }
-                  </p>
-                </div>
-                <button
-                  onClick={this.obterLocalizacao}
-                  className="btn btn-outline-primary w-100 mt-2">
-                    Qual a minha estação climática?
-                </button>
-              </div>
+                :
+                  <EstacaoClimatica
+                    icone={this.state.icone}
+                    estacao={this.state.estacao}
+                    latitude={this.state.latitude}
+                    longitude={this.state.longitude}
+                    data={this.state.data}
+                    mensagemErro={this.state.mensagemErro}
+                    obterLocalizacao={this.obterLocalizacao}/>
+            }
             </div>
           </div>
         </div>
