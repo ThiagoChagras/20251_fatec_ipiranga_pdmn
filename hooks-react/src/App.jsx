@@ -1,6 +1,7 @@
 //rafce
 import React from 'react'
 import Accordion from './components/accordion.jsx'
+import Busca from './components/Busca.jsx'
 const itens = [
   {
     titulo: 'Java',
@@ -16,10 +17,10 @@ const itens = [
   },
 ]
 const App = () => {
+  const expressaoJSX = <Busca />
   return (
     <div>
-      {/* passar a lista via props, associando ela a um props chamado itens */}
-      <Accordion itens={itens}/>
+      {expressaoJSX}
     </div>
   )
 }
